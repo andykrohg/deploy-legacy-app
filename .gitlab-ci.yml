@@ -12,6 +12,9 @@
 # you can delete this line if you're not using Docker
 image: quay.io/akrohg/molecule
 
+variables:
+  ANSIBLE_LOCAL_TMP: /tmp
+
 test:
   stage: test
   script:
