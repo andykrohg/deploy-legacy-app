@@ -16,5 +16,6 @@ provisioner:
   name: ansible
   env:
     ANSIBLE_LOCAL_TEMP: /tmp
+    ANSIBLE_REMOTE_TEMP: /tmp
 verifier:
   name: ansible
