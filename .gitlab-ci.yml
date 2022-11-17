@@ -18,4 +18,5 @@ variables:
 test:
   stage: test
   script:
+    - cd roles/deploy_legacy_app
     - molecule test
