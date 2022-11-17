@@ -9,3 +9,13 @@
       name: molecule
       api_version: v1
       state: absent
+
+  - name: Wait for namespace to be deleted
+    k8s_info:
+      kind: Namespace
+      name: molecule
+      api_version: v1
+    register: result
+    until: result.resources | length == 0
+    retries: 10
+      delay: 3
