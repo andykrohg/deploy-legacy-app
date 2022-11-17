@@ -1,0 +1,61 @@
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app: legacy-app
+      app.kubernetes.io/component: legacy-app
+      app.kubernetes.io/instance: legacy-app
+    name: legacy-app
+    namespace: {{ deploy_legacy_app_namespace }}
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        deployment: legacy-app
+    template:
+      metadata:
+        labels:
+          deployment: legacy-app
+      spec:
+        containers:
+        - image: {{ deploy_legacy_app_image }}
+          name: legacy-app
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    labels:
+      app: legacy-app
+      app.kubernetes.io/component: legacy-app
+      app.kubernetes.io/instance: legacy-app
+    name: legacy-app
+    namespace: {{ deploy_legacy_app_namespace }}
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      deployment: legacy-app
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    labels:
+      app: legacy-app
+      app.kubernetes.io/component: legacy-app
+      app.kubernetes.io/instance: legacy-app
+    name: legacy-app
+    namespace: {{ deploy_legacy_app_namespace }}
+  spec:
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: legacy-app
+      weight: 100
+    wildcardPolicy: None

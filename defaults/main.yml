@@ -1,0 +1,6 @@
+---
+# defaults file for deploy_legacy_app
+deploy_legacy_app_namespace: "legacy"
+
+# using an image here for simplicity, but could use a binary instead
+deploy_legacy_app_image: "docker.io/openshift/deployment-example:v1"

@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: localhost
+  tasks:
+    # replace these tasks with whatever you find suitable to test
+    - name: "Include deploy_legacy_app"
+      ansible.builtin.include_role:
+        name: "deploy_legacy_app"
+      vars:
+        deploy_legacy_app_namespace: "molecule"

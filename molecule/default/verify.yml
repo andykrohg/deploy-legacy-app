@@ -1,0 +1,24 @@
+---
+- name: Verify
+  hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: Get URL from route
+    k8s_info:
+      namespace: molecule
+      name: legacy-app
+      kind: Route
+      api_version: v1
+    register: legacy_app_route
+
+  - name: Set Route Fact
+    ansible.builtin.set_fact:
+      legacy_app_host: "{{ legacy_app_route.resources[0].spec.host }}"
+
+  - name: Send HTTP request to service
+    ansible.builtin.uri:
+      url: "http://{{ legacy_app_host }}"
+
+  ##################################
+  ## Other integration tests here ##
+  ##################################
