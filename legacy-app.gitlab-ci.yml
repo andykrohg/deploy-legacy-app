@@ -1,0 +1,16 @@
+image: registry.access.redhat.com/ubi8/openjdk-11:latest
+
+build:
+  stage: build
+  script:
+    - mvn package
+
+push:
+  stage: test
+  script:
+    - echo "Pushing artifact up repository"
+
+deploy_with_tower:
+  stage: deploy
+  script:
+    - curl https://example-ansible-automation-platform.apps.cluster-h4cjn.h4cjn.sandbox1700.opentlc.com/api/v2/job_templates/9/launch/ -X POST -I -u admin:9r6Oxkq9szaNosIujh3YJxkOtjhaJL3T
