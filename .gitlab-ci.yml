@@ -13,9 +13,9 @@
 image: quay.io/akrohg/molecule
 
 variables:
-  ANSIBLE_LOCAL_TMP: /tmp
+  ANSIBLE_LOCAL_TEMP: /tmp
 
 test:
   stage: test
   script:
-    - export ANSIBLE_LOCAL_TMP=/tmp && molecule test
+    - molecule test
