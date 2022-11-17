@@ -18,5 +18,4 @@ variables:
 test:
   stage: test
   script:
-    - export ANSIBLE_LOCAL_TMP=/tmp
-    - molecule test
+    - export ANSIBLE_LOCAL_TMP=/tmp && molecule test
