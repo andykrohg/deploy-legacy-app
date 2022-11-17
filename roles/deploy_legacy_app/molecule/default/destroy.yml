@@ -18,4 +18,4 @@
     register: result
     until: result.resources | length == 0
     retries: 10
-      delay: 3
+    delay: 3
